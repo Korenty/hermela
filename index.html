@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hermela | Digital Home</title>
+  <!-- Google Fonts: Cinzel Decorative & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Compiled Tailwind CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gallery-alabaster text-gallery-charcoal dark:bg-abyssal-void dark:text-abyssal-offwhite transition-colors duration-700 antialiased font-sans selection:bg-gallery-bronze selection:text-white dark:selection:bg-abyssal-oxidized">
+
+  <!-- HERO ECOSYSTEM -->
+  <main class="relative min-h-screen flex flex-col justify-between px-6 py-8 md:px-12 md:py-12">
+    
+    <!-- TOP NAVIGATION & TOGGLE -->
+    <header class="flex justify-between items-center z-10 uppercase tracking-widest text-xs md:text-sm font-medium">
+      <div class="nav-brand">
+        <span>Est. 2026</span>
+      </div>
+      
+      <!-- The Mode Toggle Button -->
+      <button id="theme-toggle" class="hover:text-gallery-bronze dark:hover:text-abyssal-oxidized transition-colors duration-300 focus:outline-none">
+        <span class="dark:hidden">Dark Mode</span>
+        <span class="hidden dark:inline">Light Mode</span>
+      </button>
+    </header>
+
+    <!-- CENTER PIECE: THE EDITORIAL WORDMARK -->
+    <section class="flex-grow flex flex-col items-center justify-center z-10">
+      <h1 class="font-display text-5xl md:text-8xl lg:text-[10rem] leading-none text-center">
+        HERMELA
+      </h1>
+      <p class="mt-6 text-sm md:text-base max-w-md text-center opacity-80 tracking-wide font-light">
+        The Polymath of Algorithmic Elegance
+      </p>
+    </section>
+
+    <!-- BOTTOM ANCHOR: SCROLL INDICATOR -->
+    <footer class="flex justify-center z-10">
+      <span class="text-xs tracking-widest uppercase animate-pulse">
+        Scroll to Explore
+      </span>
+    </footer>
+
+    <!-- BACKGROUND MEDIA CONTAINER -->
+    <div class="absolute inset-0 z-0 overflow-hidden opacity-20 dark:opacity-30 pointer-events-none">
+       <!-- High-res background asset container -->
+    </div>
+
+  </main>
+
+  <!-- External JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>
