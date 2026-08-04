@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hermela | Works & Ecosystem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gallery-alabaster text-gallery-charcoal dark:bg-abyssal-void dark:text-abyssal-offwhite transition-colors duration-700 antialiased font-sans selection:bg-gallery-bronze selection:text-white dark:selection:bg-abyssal-oxidized">
+
+  <main class="min-h-screen px-6 py-8 md:px-12 md:py-12 flex flex-col justify-between">
+    
+    <!-- TOP NAVIGATION -->
+    <header class="flex justify-between items-center z-10 uppercase tracking-widest text-xs md:text-sm font-medium">
+      <div class="flex gap-8">
+        <a href="index.html" class="hover:text-gallery-bronze dark:hover:text-abyssal-oxidized transition-colors">Home</a>
+        <a href="about.html" class="hover:text-gallery-bronze dark:hover:text-abyssal-oxidized transition-colors">About</a>
+        <a href="projects.html" class="border-b border-gallery-charcoal dark:border-abyssal-offwhite pb-1">Works</a>
+      </div>
+      
+      <button id="theme-toggle" class="hover:text-gallery-bronze dark:hover:text-abyssal-oxidized transition-colors duration-300 focus:outline-none">
+        <span class="dark:hidden">Dark Mode</span>
+        <span class="hidden dark:inline">Light Mode</span>
+      </button>
+    </header>
+
+    <!-- GALLERY CONTAINER -->
+    <section class="max-w-6xl mx-auto my-16 z-10 w-full space-y-12">
+      
+      <div class="space-y-4">
+        <h2 class="font-display text-3xl md:text-5xl">Selected Works</h2>
+        <p class="text-sm md:text-base font-light opacity-80 tracking-wide">
+          A visual archive of structural logic, digital architecture, and aesthetic expression.
+        </p>
+      </div>
+
+      <!-- EDITORIAL GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Project Card 1 -->
+        <div class="group relative bg-gallery-cashmere dark:bg-abyssal-structure h-[400px] overflow-hidden flex items-end p-8 transition-all duration-500">
+          <div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-700"></div>
+          <div class="relative z-10 space-y-2">
+            <span class="text-xs tracking-widest uppercase opacity-60">System Architecture</span>
+            <h3 class="font-display text-2xl">The Algorithmic Canvas</h3>
+          </div>
+        </div>
+
+        <!-- Project Card 2 -->
+        <div class="group relative bg-gallery-cashmere dark:bg-abyssal-structure h-[400px] overflow-hidden flex items-end p-8 transition-all duration-500">
+          <div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-700"></div>
+          <div class="relative z-10 space-y-2">
+            <span class="text-xs tracking-widest uppercase opacity-60">Editorial Narrative</span>
+            <h3 class="font-display text-2xl">Sovereign Presence</h3>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs tracking-widest uppercase opacity-50 py-4">
+      <span>Hermela © 2026</span>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
