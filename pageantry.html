@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pageantry — The Crown. Hermela Ashenafi Assefa's 2026 title journey from Miss Ethiopia 4th Runner-Up to Miss Tourism Ethiopia and the road to Miss Tourism Africa in Nigeria."
+    />
+    <title>Pageantry — The Crown | Hermela Ashenafi Assefa</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/lenis@1.1.16/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#0B0B0B',
+              graphite: '#1A1A1A',
+              mineral: '#23252B',
+              alabaster: '#EDEAE3',
+              optical: '#F5F5F4',
+              sovereign: '#BFA46F'
+            },
+            fontFamily: {
+              display: ['Fraunces', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            },
+            boxShadow: {
+              glow: '0 0 0 1px rgba(245,245,244,0.12), 0 18px 60px rgba(0,0,0,0.45)'
+            }
+          }
+        }
+      };
+    </script>
+
+    <style>
+      :root {
+        --ease-power: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      body {
+        background: radial-gradient(circle at 15% 0%, #252018 0%, #0b0b0b 58%, #070707 100%);
+      }
+
+      .wordmark {
+        letter-spacing: 0.07em;
+      }
+
+      .meta-kern {
+        letter-spacing: 0.16em;
+      }
+
+      .hybrid-nav {
+        backdrop-filter: blur(14px);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 245, 244, 0.11),
+          rgba(255, 255, 255, 0.04)
+        );
+      }
+
+      .curtain {
+        clip-path: circle(0% at 92% 7%);
+        transition: clip-path 0.75s var(--ease-power);
+      }
+
+      .curtain[data-open='true'] {
+        clip-path: circle(150% at 92% 7%);
+      }
+
+      .grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        z-index: 60;
+        mix-blend-mode: soft-light;
+      }
+
+      .text-mask {
+        overflow: hidden;
+        display: inline-block;
+        padding-bottom: 0.08em;
+      }
+
+      .char {
+        display: inline-block;
+        transform: translateY(112%);
+      }
+
+      .parallax-plane {
+        will-change: transform;
+      }
+
+      .timeline-line {
+        background: linear-gradient(180deg, rgba(191, 164, 111, 0.15), rgba(191, 164, 111, 0.65), rgba(191, 164, 111, 0.1));
+      }
+
+      .rail-track {
+        display: flex;
+        width: max-content;
+        gap: 1rem;
+      }
+
+      .rail-card {
+        width: min(78vw, 460px);
+        flex: 0 0 auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .char {
+          transform: none !important;
+        }
+
+        .curtain {
+          transition: none !important;
+          clip-path: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="font-sans text-optical antialiased selection:bg-sovereign/50 selection:text-obsidian">
+    <!-- COMPONENT: FILM GRAIN OVERLAY -->
+    <svg class="grain" aria-hidden="true">
+      <filter id="noiseFilter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.84" numOctaves="2" stitchTiles="stitch" seed="10" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
+    </svg>
+
+    <!-- COMPONENT: HYBRID KINETIC NAVIGATION -->
+    <header class="fixed inset-x-0 top-4 z-50 px-4 sm:px-6">
+      <nav
+        id="floatingNav"
+        class="hybrid-nav mx-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-optical/20 px-3 py-2 shadow-glow"
+        aria-label="Primary"
+      >
+        <a href="index.html" class="wordmark text-xs font-medium uppercase text-optical/90 sm:text-sm">Hermela A. Assefa</a>
+        <div class="flex items-center gap-2">
+          <a href="pageantry.html" class="meta-kern rounded-full px-3 py-2 text-[10px] uppercase text-sovereign">Crown</a>
+          <button
+            id="exploreToggle"
+            data-open="false"
+            class="meta-kern rounded-full border border-optical/30 bg-optical/10 px-4 py-2 text-[10px] uppercase text-optical transition hover:bg-optical hover:text-obsidian"
+            type="button"
+            aria-controls="curtainMenu"
+            aria-expanded="false"
+          >
+            Explore
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- COMPONENT: CURTAIN MENU -->
+    <aside
+      id="curtainMenu"
+      data-open="false"
+      class="curtain fixed inset-0 z-40 flex items-center justify-center bg-obsidian/95"
+      aria-hidden="true"
+    >
+      <div class="w-full max-w-3xl px-8">
+        <p class="meta-kern mb-6 text-[10px] uppercase text-optical/55">Navigation</p>
+        <ul class="space-y-4">
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="index.html">The Prologue</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="about.html">The Biome</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="pageantry.html">The Crown</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="intellect.html">The Architect</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="philosophy.html">The Mind</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="gallery.html">The Muse</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="contact.html">The Connect</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main id="app" data-lenis-container>
+      <!-- COMPONENT: CROWN HERO -->
+      <section id="crown-hero" class="relative min-h-[92svh] overflow-hidden border-b border-optical/10">
+        <div class="absolute inset-0 -z-10">
+          <img
+            src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1800&q=80"
+            alt="Regal portrait in shadow"
+            class="parallax-plane absolute inset-0 h-full w-full object-cover opacity-28"
+            data-depth="0.1"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?auto=format&fit=crop&w=1800&q=80"
+            alt="Editorial movement and couture silhouette"
+            class="parallax-plane absolute inset-0 h-full w-full object-cover opacity-18"
+            data-depth="0.18"
+          />
+        </div>
+
+        <div class="mx-auto flex min-h-[92svh] w-full max-w-6xl flex-col justify-end px-5 pb-12 pt-28 sm:px-8 sm:pb-16 lg:px-12">
+          <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/70">The Crown · 2026 Chapter</p>
+          <h1 class="max-w-4xl font-display text-4xl leading-[0.95] text-optical sm:text-6xl lg:text-7xl" data-split>
+            Majesty is not a moment. It is discipline, voice, and responsibility in motion.
+          </h1>
+          <p class="mt-6 max-w-2xl text-sm leading-relaxed text-alabaster/80 sm:text-base">
+            From national recognition to continental representation, this chapter honors Hermela’s title journey as a platform for purpose — empowering others, challenging perspectives, and creating meaningful change.
+          </p>
+        </div>
+      </section>
+
+      <!-- COMPONENT: MILESTONE COUNTERS -->
+      <section id="milestones" class="border-b border-optical/10 px-5 py-14 sm:px-8 lg:px-12">
+        <div class="mx-auto w-full max-w-6xl">
+          <div class="grid gap-4 sm:grid-cols-3">
+            <article class="rounded-2xl border border-sovereign/35 bg-sovereign/10 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/70">Miss Ethiopia Ranking</p>
+              <p class="mt-2 font-display text-5xl text-optical" data-counter data-target="4">0</p>
+              <p class="mt-1 text-xs text-alabaster/70">Runner-Up Position</p>
+            </article>
+            <article class="rounded-2xl border border-optical/20 bg-optical/5 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/70">National Titles in 2026</p>
+              <p class="mt-2 font-display text-5xl text-optical" data-counter data-target="2">0</p>
+              <p class="mt-1 text-xs text-alabaster/70">Major Recognitions</p>
+            </article>
+            <article class="rounded-2xl border border-optical/20 bg-optical/5 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/70">Continents on Stage</p>
+              <p class="mt-2 font-display text-5xl text-optical" data-counter data-target="1">0</p>
+              <p class="mt-1 text-xs text-alabaster/70">Road to Miss Tourism Africa</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPONENT: CROWN TIMELINE -->
+      <section id="timeline" class="border-b border-optical/10 bg-mineral/35 px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto w-full max-w-6xl">
+          <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/65">Milestone Sequence</p>
+          <h2 class="max-w-3xl font-display text-3xl leading-tight text-optical sm:text-4xl" data-split>
+            A sovereign ascent from national stage to international representation.
+          </h2>
+
+          <div class="relative mt-10 space-y-8 pl-8">
+            <span class="timeline-line absolute bottom-0 left-2 top-0 w-[2px]" aria-hidden="true"></span>
+
+            <article class="relative rounded-2xl border border-optical/15 bg-obsidian/40 p-5">
+              <span class="absolute -left-[1.82rem] top-6 h-4 w-4 rounded-full border border-sovereign bg-obsidian"></span>
+              <p class="meta-kern text-[10px] uppercase text-sovereign/90">Miss Ethiopia 2026</p>
+              <p class="mt-2 text-xl text-optical">4th Runner-Up</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/80">
+                A defining national moment affirming her poise, discipline, and ability to transform visibility into impact.
+              </p>
+            </article>
+
+            <article class="relative rounded-2xl border border-optical/15 bg-obsidian/40 p-5">
+              <span class="absolute -left-[1.82rem] top-6 h-4 w-4 rounded-full border border-sovereign bg-obsidian"></span>
+              <p class="meta-kern text-[10px] uppercase text-sovereign/90">August 2026</p>
+              <p class="mt-2 text-xl text-optical">Miss Tourism Ethiopia — Reigning Titleholder</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/80">
+                Crowned with a mandate to represent culture, purpose, and modern Ethiopian femininity through leadership and global storytelling.
+              </p>
+            </article>
+
+            <article class="relative rounded-2xl border border-optical/15 bg-obsidian/40 p-5">
+              <span class="absolute -left-[1.82rem] top-6 h-4 w-4 rounded-full border border-sovereign bg-obsidian"></span>
+              <p class="meta-kern text-[10px] uppercase text-sovereign/90">September 2026 · Nigeria</p>
+              <p class="mt-2 text-xl text-optical">Miss Tourism Africa — International Preparation</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/80">
+                Preparing to represent Ethiopia on the African stage with a message rooted in confidence, identity, and meaningful change.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPONENT: HORIZONTAL GALLERY RAIL -->
+      <section id="crown-rail" class="relative border-b border-optical/10 px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto w-full max-w-6xl">
+          <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/65">Editorial Crown Archive</p>
+          <h2 class="max-w-3xl font-display text-3xl leading-tight text-optical sm:text-4xl" data-split>
+            Poise, movement, and narrative under light.
+          </h2>
+        </div>
+
+        <div class="mt-8 overflow-hidden">
+          <div id="railTrack" class="rail-track px-5 sm:px-8 lg:px-12">
+            <article class="rail-card rounded-2xl border border-optical/15 bg-optical/5 p-3">
+              <img class="h-[56svh] w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1300&q=80" alt="Runway portrait in dramatic tones" />
+            </article>
+            <article class="rail-card rounded-2xl border border-optical/15 bg-optical/5 p-3">
+              <img class="h-[56svh] w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1300&q=80" alt="Couture-inspired editorial frame" />
+            </article>
+            <article class="rail-card rounded-2xl border border-optical/15 bg-optical/5 p-3">
+              <img class="h-[56svh] w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=1300&q=80" alt="High-fashion silhouette and expression" />
+            </article>
+            <article class="rail-card rounded-2xl border border-optical/15 bg-optical/5 p-3">
+              <img class="h-[56svh] w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1300&q=80" alt="Portrait with cinematic shadow geometry" />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPONENT: CROWN MANIFESTO CTA -->
+      <section id="crown-cta" class="px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto w-full max-w-5xl rounded-3xl border border-optical/15 bg-graphite/35 p-8 text-center">
+          <p class="meta-kern text-[10px] uppercase text-alabaster/65">Beyond Applause</p>
+          <h2 class="mt-4 font-display text-3xl leading-tight text-optical sm:text-4xl" data-split>
+            A crown is most meaningful when it becomes a bridge for others.
+          </h2>
+          <p class="mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-alabaster/80 sm:text-base">
+            This chapter is not only about recognition. It is about using visibility to inspire confidence, celebrate individuality, and champion a future where beauty and intellect are never placed in opposition.
+          </p>
+          <div class="mt-8">
+            <a
+              href="gallery.html"
+              class="inline-flex rounded-full border border-sovereign/60 bg-sovereign px-6 py-3 text-xs font-medium uppercase tracking-[0.14em] text-obsidian"
+            >
+              Continue to The Muse
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- COMPONENT: FOOTER -->
+    <footer class="border-t border-optical/10 px-5 py-8 sm:px-8 lg:px-12">
+      <div class="mx-auto flex w-full max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-xs text-alabaster/60">© 2026 Hermela Ashenafi Assefa</p>
+        <p class="meta-kern text-[10px] uppercase text-alabaster/50">The Crown · Editorial sovereignty</p>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const exploreToggle = document.getElementById('exploreToggle');
+        const curtainMenu = document.getElementById('curtainMenu');
+
+        function setMenuState(isOpen) {
+          curtainMenu.setAttribute('data-open', String(isOpen));
+          curtainMenu.setAttribute('aria-hidden', String(!isOpen));
+          exploreToggle.setAttribute('aria-expanded', String(isOpen));
+          exploreToggle.setAttribute('data-open', String(isOpen));
+          document.body.classList.toggle('overflow-hidden', isOpen);
+        }
+
+        exploreToggle.addEventListener('click', () => {
+          const open = exploreToggle.getAttribute('data-open') === 'true';
+          setMenuState(!open);
+        });
+
+        curtainMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => setMenuState(false));
+        });
+
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setMenuState(false);
+        });
+
+        if (reduceMotion) {
+          document.querySelectorAll('[data-counter]').forEach((el) => {
+            el.textContent = el.getAttribute('data-target') || '0';
+          });
+          return;
+        }
+
+        const lenis = new Lenis({
+          lerp: 0.09,
+          wheelMultiplier: 0.95,
+          smoothWheel: true,
+          normalizeWheel: true
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+
+        document.querySelectorAll('[data-split]').forEach((element) => {
+          const text = element.textContent.trim();
+          element.innerHTML = '';
+          [...text].forEach((char) => {
+            const mask = document.createElement('span');
+            mask.className = 'text-mask';
+            const inner = document.createElement('span');
+            inner.className = 'char';
+            inner.textContent = char === ' ' ? '\u00A0' : char;
+            mask.appendChild(inner);
+            element.appendChild(mask);
+          });
+        });
+
+        gsap.to('.char', {
+          yPercent: 0,
+          duration: 1.05,
+          ease: 'expo.out',
+          stagger: 0.03,
+          delay: 0.1
+        });
+
+        document.querySelectorAll('.parallax-plane').forEach((plane) => {
+          const depth = Number(plane.getAttribute('data-depth') || 0.12);
+          gsap.to(plane, {
+            yPercent: depth * 90,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#crown-hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true
+            }
+          });
+        });
+
+        document.querySelectorAll('[data-counter]').forEach((counter) => {
+          const target = Number(counter.getAttribute('data-target') || 0);
+          const obj = { value: 0 };
+
+          gsap.to(obj, {
+            value: target,
+            duration: 1.4,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: counter,
+              start: 'top 85%'
+            },
+            onUpdate: () => {
+              counter.textContent = String(Math.round(obj.value));
+            }
+          });
+        });
+
+        const track = document.getElementById('railTrack');
+        const cards = track ? Array.from(track.children) : [];
+
+        if (track && cards.length > 0) {
+          const getScrollAmount = () => {
+            const totalWidth = cards.reduce((sum, card) => sum + card.offsetWidth, 0) + (cards.length - 1) * 16;
+            return Math.max(0, totalWidth - window.innerWidth + 40);
+          };
+
+          let scrollTween = gsap.to(track, {
+            x: () => -getScrollAmount(),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#crown-rail',
+              start: 'top top',
+              end: () => `+=${getScrollAmount() * 1.2 + 700}`,
+              pin: true,
+              scrub: true,
+              invalidateOnRefresh: true
+            }
+          });
+
+          window.addEventListener('resize', () => {
+            scrollTween.scrollTrigger && scrollTween.scrollTrigger.refresh();
+          });
+        }
+
+        const floatingNav = document.getElementById('floatingNav');
+        let lastY = window.scrollY;
+        let lastTime = performance.now();
+
+        function updateNavVelocity() {
+          const now = performance.now();
+          const dy = window.scrollY - lastY;
+          const dt = Math.max(1, now - lastTime);
+          const velocity = Math.min(1, Math.abs(dy / dt) * 3.2);
+
+          gsap.to(floatingNav, {
+            y: Math.min(14, velocity * 14),
+            scale: 1 - velocity * 0.03,
+            duration: 0.35,
+            ease: 'power3.out'
+          });
+
+          lastY = window.scrollY;
+          lastTime = now;
+          requestAnimationFrame(updateNavVelocity);
+        }
+
+        requestAnimationFrame(updateNavVelocity);
+      })();
+    </script>
+  </body>
+</html>
