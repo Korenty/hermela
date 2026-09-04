@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="About Hermela Ashenafi Assefa — The Biome. A layered portrait of discipline, leadership, creativity, and evolving human potential."
+    />
+    <title>About — The Biome | Hermela Ashenafi Assefa</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/lenis@1.1.16/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#0B0B0B',
+              graphite: '#1A1A1A',
+              mineral: '#23252B',
+              alabaster: '#EDEAE3',
+              optical: '#F5F5F4',
+              sovereign: '#BFA46F'
+            },
+            fontFamily: {
+              display: ['Fraunces', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            },
+            boxShadow: {
+              glow: '0 0 0 1px rgba(245,245,244,0.12), 0 18px 60px rgba(0,0,0,0.45)'
+            }
+          }
+        }
+      };
+    </script>
+
+    <style>
+      :root {
+        --ease-power: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      body {
+        background: radial-gradient(circle at 80% 0%, #212329 0%, #0b0b0b 58%, #070707 100%);
+      }
+
+      .wordmark {
+        letter-spacing: 0.07em;
+      }
+
+      .meta-kern {
+        letter-spacing: 0.16em;
+      }
+
+      .hybrid-nav {
+        backdrop-filter: blur(14px);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 245, 244, 0.11),
+          rgba(255, 255, 255, 0.04)
+        );
+      }
+
+      .curtain {
+        clip-path: circle(0% at 92% 7%);
+        transition: clip-path 0.75s var(--ease-power);
+      }
+
+      .curtain[data-open='true'] {
+        clip-path: circle(150% at 92% 7%);
+      }
+
+      .grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        z-index: 60;
+        mix-blend-mode: soft-light;
+      }
+
+      .text-mask {
+        overflow: hidden;
+        display: inline-block;
+        padding-bottom: 0.08em;
+      }
+
+      .char {
+        display: inline-block;
+        transform: translateY(112%);
+      }
+
+      .parallax-plane {
+        will-change: transform, filter;
+      }
+
+      .magnetic-inner {
+        transition: transform 0.22s ease-out;
+        will-change: transform;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .char {
+          transform: none !important;
+        }
+
+        .curtain {
+          transition: none !important;
+          clip-path: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="font-sans text-optical antialiased">
+    <!-- COMPONENT: FILM GRAIN OVERLAY -->
+    <svg class="grain" aria-hidden="true">
+      <filter id="noiseFilter">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.8"
+          numOctaves="2"
+          stitchTiles="stitch"
+          seed="6"
+        />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
+    </svg>
+
+    <!-- COMPONENT: HYBRID KINETIC NAVIGATION -->
+    <header class="fixed inset-x-0 top-4 z-50 px-4 sm:px-6">
+      <nav
+        id="floatingNav"
+        class="hybrid-nav mx-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-optical/20 px-3 py-2 shadow-glow"
+        aria-label="Primary"
+      >
+        <a href="index.html" class="wordmark text-xs font-medium uppercase text-optical/90 sm:text-sm">Hermela A. Assefa</a>
+        <div class="flex items-center gap-2">
+          <a href="about.html" class="meta-kern rounded-full px-3 py-2 text-[10px] uppercase text-sovereign">Biome</a>
+          <button
+            id="exploreToggle"
+            data-open="false"
+            class="meta-kern rounded-full border border-optical/30 bg-optical/10 px-4 py-2 text-[10px] uppercase text-optical transition hover:bg-optical hover:text-obsidian"
+            type="button"
+            aria-controls="curtainMenu"
+            aria-expanded="false"
+          >
+            Explore
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- COMPONENT: CURTAIN MENU -->
+    <aside
+      id="curtainMenu"
+      data-open="false"
+      class="curtain fixed inset-0 z-40 flex items-center justify-center bg-obsidian/95"
+      aria-hidden="true"
+    >
+      <div class="w-full max-w-3xl px-8">
+        <p class="meta-kern mb-6 text-[10px] uppercase text-optical/55">Navigation</p>
+        <ul class="space-y-4">
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="index.html">The Prologue</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="about.html">The Biome</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="pageantry.html">The Crown</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="intellect.html">The Architect</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="philosophy.html">The Mind</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="gallery.html">The Muse</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="contact.html">The Connect</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main id="app" data-lenis-container>
+      <!-- COMPONENT: BIOME HERO -->
+      <section id="biome-hero" class="relative min-h-[90svh] overflow-hidden border-b border-optical/10">
+        <div class="absolute inset-0 -z-10">
+          <img
+            src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=80"
+            alt="Cinematic fashion portrait"
+            class="parallax-plane absolute inset-0 h-full w-full object-cover opacity-30"
+            data-depth="0.12"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1800&q=80"
+            alt="Minimal architecture in shadow"
+            class="parallax-plane absolute inset-0 h-full w-full object-cover opacity-22"
+            data-depth="0.22"
+          />
+        </div>
+
+        <div class="mx-auto flex min-h-[90svh] w-full max-w-6xl flex-col justify-end px-5 pb-12 pt-28 sm:px-8 sm:pb-16 lg:px-12">
+          <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/70">The Biome · Origins of discipline and becoming</p>
+          <h1 class="max-w-4xl font-display text-4xl leading-[0.95] text-optical sm:text-6xl lg:text-7xl" data-split>
+            Every morning begins with movement, reflection, and intention.
+          </h1>
+          <p class="mt-6 max-w-2xl text-sm leading-relaxed text-alabaster/80 sm:text-base">
+            Before productivity, she chooses presence. Before noise, she chooses connection with self. Hermela’s story is not a linear résumé — it is an evolving architecture of mind, body, discipline, and purpose.
+          </p>
+        </div>
+      </section>
+
+      <!-- COMPONENT: JOURNEY STRATA -->
+      <section id="journey" class="border-b border-optical/10 px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-2">
+          <article class="rounded-2xl border border-optical/15 bg-optical/5 p-6">
+            <p class="meta-kern text-[10px] uppercase text-alabaster/65">Foundation</p>
+            <h2 class="mt-3 font-display text-3xl text-optical" data-split>Computer Science + Project Architecture</h2>
+            <p class="mt-4 text-sm leading-relaxed text-alabaster/80">
+              Trained in systems thinking, she developed fluency in structure: planning complexity, optimizing execution,
+              and translating ambitious visions into practical frameworks.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-optical/15 bg-optical/5 p-6">
+            <p class="meta-kern text-[10px] uppercase text-alabaster/65">Expression</p>
+            <h2 class="mt-3 font-display text-3xl text-optical" data-split>Fashion as language, not decoration</h2>
+            <p class="mt-4 text-sm leading-relaxed text-alabaster/80">
+              Her wardrobe ethic is intentional storytelling: every look reflects identity, confidence, and the courage to be
+              distinct. Sovereign structure meets fluid kinetic grace.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- COMPONENT: VALUES GRID -->
+      <section id="values" class="border-b border-optical/10 bg-mineral/35 px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto w-full max-w-6xl">
+          <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/65">Personal Codes</p>
+          <h2 class="max-w-3xl font-display text-3xl leading-tight text-optical sm:text-4xl" data-split>
+            Influence is a tool best used to empower others, challenge perspectives, and create meaningful change.
+          </h2>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <article class="rounded-2xl border border-optical/15 bg-obsidian/40 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/60">Commandment I</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/85">Every outfit should tell a story about who I am.</p>
+            </article>
+            <article class="rounded-2xl border border-optical/15 bg-obsidian/40 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/60">Commandment II</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/85">Dress with intention, have fun, and let personality shine.</p>
+            </article>
+            <article class="rounded-2xl border border-optical/15 bg-obsidian/40 p-5 sm:col-span-2 lg:col-span-1">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/60">Commandment III</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/85">Know what works for you and wear it with confidence.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPONENT: IMAGE ESSAY -->
+      <section id="essay" class="px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto grid w-full max-w-6xl gap-4 sm:grid-cols-2">
+          <img class="rounded-2xl object-cover h-72 w-full" src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80" alt="Editorial portrait with natural lighting" />
+          <img class="rounded-2xl object-cover h-72 w-full" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80" alt="Fashion-forward silhouette in deep contrast" />
+          <img class="rounded-2xl object-cover h-72 w-full sm:col-span-2" src="https://images.unsplash.com/photo-1464863979621-258859e62245?auto=format&fit=crop&w=1600&q=80" alt="Quiet architectural framing and movement" />
+        </div>
+
+        <div class="mx-auto mt-10 w-full max-w-4xl text-center">
+          <p class="text-sm leading-relaxed text-alabaster/80 sm:text-base">
+            The biome is where discipline becomes identity: movement at dawn, strategic thought by day, and artistic expression as a continuous study of human possibility.
+          </p>
+          <a
+            href="intellect.html"
+            class="magnetic mt-8 inline-flex rounded-full border border-sovereign/60 bg-sovereign px-6 py-3 text-xs font-medium uppercase tracking-[0.14em] text-obsidian"
+            data-magnetic
+          >
+            <span class="magnetic-inner">Enter The Architect</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- COMPONENT: FOOTER -->
+    <footer class="border-t border-optical/10 px-5 py-8 sm:px-8 lg:px-12">
+      <div class="mx-auto flex w-full max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-xs text-alabaster/60">© 2026 Hermela Ashenafi Assefa</p>
+        <p class="meta-kern text-[10px] uppercase text-alabaster/50">The Biome · Mobile-first cinematic layer</p>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const exploreToggle = document.getElementById('exploreToggle');
+        const curtainMenu = document.getElementById('curtainMenu');
+
+        function setMenuState(isOpen) {
+          curtainMenu.setAttribute('data-open', String(isOpen));
+          curtainMenu.setAttribute('aria-hidden', String(!isOpen));
+          exploreToggle.setAttribute('aria-expanded', String(isOpen));
+          exploreToggle.setAttribute('data-open', String(isOpen));
+          document.body.classList.toggle('overflow-hidden', isOpen);
+        }
+
+        exploreToggle.addEventListener('click', () => {
+          const open = exploreToggle.getAttribute('data-open') === 'true';
+          setMenuState(!open);
+        });
+
+        curtainMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => setMenuState(false));
+        });
+
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setMenuState(false);
+        });
+
+        if (reduceMotion) {
+          return;
+        }
+
+        const lenis = new Lenis({
+          lerp: 0.09,
+          wheelMultiplier: 0.95,
+          smoothWheel: true,
+          normalizeWheel: true
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+
+        document.querySelectorAll('[data-split]').forEach((element) => {
+          const text = element.textContent.trim();
+          element.innerHTML = '';
+          [...text].forEach((char) => {
+            const mask = document.createElement('span');
+            mask.className = 'text-mask';
+            const inner = document.createElement('span');
+            inner.className = 'char';
+            inner.textContent = char === ' ' ? '\u00A0' : char;
+            mask.appendChild(inner);
+            element.appendChild(mask);
+          });
+        });
+
+        gsap.to('.char', {
+          yPercent: 0,
+          duration: 1.05,
+          ease: 'expo.out',
+          stagger: 0.03,
+          delay: 0.12
+        });
+
+        document.querySelectorAll('.parallax-plane').forEach((plane) => {
+          const depth = Number(plane.getAttribute('data-depth') || 0.15);
+          gsap.to(plane, {
+            yPercent: depth * 80,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#biome-hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true
+            }
+          });
+        });
+
+        const floatingNav = document.getElementById('floatingNav');
+        let lastY = window.scrollY;
+        let lastTime = performance.now();
+
+        function updateNavVelocity() {
+          const now = performance.now();
+          const dy = window.scrollY - lastY;
+          const dt = Math.max(1, now - lastTime);
+          const velocity = Math.min(1, Math.abs(dy / dt) * 3.2);
+
+          gsap.to(floatingNav, {
+            y: Math.min(14, velocity * 14),
+            scale: 1 - velocity * 0.03,
+            duration: 0.35,
+            ease: 'power3.out'
+          });
+
+          lastY = window.scrollY;
+          lastTime = now;
+          requestAnimationFrame(updateNavVelocity);
+        }
+
+        requestAnimationFrame(updateNavVelocity);
+
+        document.querySelectorAll('[data-magnetic]').forEach((node) => {
+          const inner = node.querySelector('.magnetic-inner');
+          if (!inner) return;
+
+          node.addEventListener('mousemove', (e) => {
+            const rect = node.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const tx = gsap.utils.clamp(-10, 10, x * 0.2);
+            const ty = gsap.utils.clamp(-8, 8, y * 0.2);
+            gsap.to(inner, { x: tx, y: ty, duration: 0.24, ease: 'power3.out' });
+          });
+
+          node.addEventListener('mouseleave', () => {
+            gsap.to(inner, { x: 0, y: 0, duration: 0.38, ease: 'expo.out' });
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
