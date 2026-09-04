@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Intellect — The Architect. Hermela Ashenafi Assefa's technical acumen, project management framework, and exploration of human potential."
+    />
+    <title>Intellect — The Architect | Hermela Ashenafi Assefa</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/lenis@1.1.16/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#0B0B0B',
+              graphite: '#1A1A1A',
+              mineral: '#23252B',
+              alabaster: '#EDEAE3',
+              optical: '#F5F5F4',
+              sovereign: '#BFA46F'
+            },
+            fontFamily: {
+              display: ['Fraunces', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            },
+            boxShadow: {
+              glow: '0 0 0 1px rgba(245,245,244,0.12), 0 18px 60px rgba(0,0,0,0.45)'
+            }
+          }
+        }
+      };
+    </script>
+
+    <style>
+      :root {
+        --ease-power: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      body {
+        background: radial-gradient(circle at 75% 0%, #1d2230 0%, #0b0b0b 58%, #070707 100%);
+      }
+
+      .wordmark {
+        letter-spacing: 0.07em;
+      }
+
+      .meta-kern {
+        letter-spacing: 0.16em;
+      }
+
+      .hybrid-nav {
+        backdrop-filter: blur(14px);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 245, 244, 0.11),
+          rgba(255, 255, 255, 0.04)
+        );
+      }
+
+      .curtain {
+        clip-path: circle(0% at 92% 7%);
+        transition: clip-path 0.75s var(--ease-power);
+      }
+
+      .curtain[data-open='true'] {
+        clip-path: circle(150% at 92% 7%);
+      }
+
+      .grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        z-index: 60;
+        mix-blend-mode: soft-light;
+      }
+
+      .text-mask {
+        overflow: hidden;
+        display: inline-block;
+        padding-bottom: 0.08em;
+      }
+
+      .char {
+        display: inline-block;
+        transform: translateY(112%);
+      }
+
+      .parallax-plane,
+      .velocity-skew {
+        will-change: transform;
+      }
+
+      .magnetic-inner {
+        transition: transform 0.22s ease-out;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .char {
+          transform: none !important;
+        }
+
+        .curtain {
+          transition: none !important;
+          clip-path: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="font-sans text-optical antialiased selection:bg-sovereign/50 selection:text-obsidian">
+    <!-- COMPONENT: FILM GRAIN OVERLAY -->
+    <svg class="grain" aria-hidden="true">
+      <filter id="noiseFilter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch" seed="12" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
+    </svg>
+
+    <!-- COMPONENT: HYBRID KINETIC NAVIGATION -->
+    <header class="fixed inset-x-0 top-4 z-50 px-4 sm:px-6">
+      <nav
+        id="floatingNav"
+        class="hybrid-nav mx-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-optical/20 px-3 py-2 shadow-glow"
+        aria-label="Primary"
+      >
+        <a href="index.html" class="wordmark text-xs font-medium uppercase text-optical/90 sm:text-sm">Hermela A. Assefa</a>
+        <div class="flex items-center gap-2">
+          <a href="intellect.html" class="meta-kern rounded-full px-3 py-2 text-[10px] uppercase text-sovereign">Architect</a>
+          <button
+            id="exploreToggle"
+            data-open="false"
+            class="meta-kern rounded-full border border-optical/30 bg-optical/10 px-4 py-2 text-[10px] uppercase text-optical transition hover:bg-optical hover:text-obsidian"
+            type="button"
+            aria-controls="curtainMenu"
+            aria-expanded="false"
+          >
+            Explore
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- COMPONENT: CURTAIN MENU -->
+    <aside id="curtainMenu" data-open="false" class="curtain fixed inset-0 z-40 flex items-center justify-center bg-obsidian/95" aria-hidden="true">
+      <div class="w-full max-w-3xl px-8">
+        <p class="meta-kern mb-6 text-[10px] uppercase text-optical/55">Navigation</p>
+        <ul class="space-y-4">
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="index.html">The Prologue</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="about.html">The Biome</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="pageantry.html">The Crown</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="intellect.html">The Architect</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="philosophy.html">The Mind</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="gallery.html">The Muse</a></li>
+          <li><a class="text-2xl font-light text-optical/90 hover:text-sovereign" href="contact.html">The Connect</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main id="app" data-lenis-container>
+      <!-- COMPONENT: ARCHITECT HERO -->
+      <section id="architect-hero" class="relative min-h-[90svh] overflow-hidden border-b border-optical/10">
+        <div class="absolute inset-0 -z-10">
+          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1800&q=80" alt="Abstract technology architecture" class="parallax-plane absolute inset-0 h-full w-full object-cover opacity-24" data-depth="0.1" />
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1800&q=80" alt="Minimal analytical workspace" class="parallax-plane absolute inset-0 h-full w-full object-cover opacity-18" data-depth="0.2" />
+        </div>
+
+        <div class="mx-auto flex min-h-[90svh] w-full max-w-6xl flex-col justify-end px-5 pb-12 pt-28 sm:px-8 sm:pb-16 lg:px-12">
+          <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/70">The Architect · Systems, strategy, and human potential</p>
+          <h1 class="max-w-4xl font-display text-4xl leading-[0.95] text-optical sm:text-6xl lg:text-7xl" data-split>
+            Rigid logic, fluid execution, and innovation in service of people.
+          </h1>
+          <p class="mt-6 max-w-2xl text-sm leading-relaxed text-alabaster/80 sm:text-base">
+            Hermela’s technical philosophy challenges a common myth: more advanced technology does not automatically mean a better future. True innovation is measured by wisdom, human values, and meaningful problem-solving.
+          </p>
+        </div>
+      </section>
+
+      <!-- COMPONENT: PM FRAMEWORK -->
+      <section id="framework" class="border-b border-optical/10 px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto w-full max-w-6xl">
+          <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/65">Project Leadership Model</p>
+          <h2 class="max-w-3xl font-display text-3xl leading-tight text-optical sm:text-4xl" data-split>
+            Strategic innovation through clear systems and courageous decisions.
+          </h2>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="rounded-2xl border border-optical/15 bg-optical/5 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/60">01 · Diagnose</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/85">Map constraints, stakeholders, and impact scope with precision.</p>
+            </article>
+            <article class="rounded-2xl border border-optical/15 bg-optical/5 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/60">02 · Architect</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/85">Design modular workflows that convert complexity into momentum.</p>
+            </article>
+            <article class="rounded-2xl border border-optical/15 bg-optical/5 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/60">03 · Align</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/85">Build collective confidence through transparent communication.</p>
+            </article>
+            <article class="rounded-2xl border border-optical/15 bg-optical/5 p-5">
+              <p class="meta-kern text-[10px] uppercase text-alabaster/60">04 · Elevate</p>
+              <p class="mt-3 text-sm leading-relaxed text-alabaster/85">Iterate with feedback and optimize for long-term human outcomes.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPONENT: CURIOSITY LAB -->
+      <section id="curiosity" class="border-b border-optical/10 bg-mineral/35 px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-2">
+          <div>
+            <p class="meta-kern mb-4 text-[10px] uppercase text-alabaster/65">Evolution Metric</p>
+            <h2 class="font-display text-3xl leading-tight text-optical sm:text-4xl" data-split>
+              Exploring philosophy, psychology, neuroscience, and neuroplasticity.
+            </h2>
+            <p class="mt-5 text-sm leading-relaxed text-alabaster/80 sm:text-base">
+              Curiosity pulls toward one question: how far can human potential evolve? Through interdisciplinary exploration,
+              she studies perception, behavior, emotion, and transformation — not as abstract theory, but as architecture for real life.
+            </p>
+          </div>
+
+          <div class="velocity-skew grid gap-4 sm:grid-cols-2" data-velocity-block>
+            <img class="h-56 w-full rounded-2xl object-cover" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Neural-inspired digital network" />
+            <img class="h-56 w-full rounded-2xl object-cover" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80" alt="Programming environment and system logic" />
+            <img class="h-56 w-full rounded-2xl object-cover sm:col-span-2" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80" alt="Strategic team collaboration session" />
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPONENT: PRINCIPLES / MANIFESTO LINK -->
+      <section id="principles" class="px-5 py-16 sm:px-8 lg:px-12">
+        <div class="mx-auto w-full max-w-5xl rounded-3xl border border-optical/15 bg-graphite/35 p-8 text-center">
+          <p class="meta-kern text-[10px] uppercase text-alabaster/65">Architectural Intent</p>
+          <h2 class="mt-4 font-display text-3xl leading-tight text-optical sm:text-4xl" data-split>
+            Not admiration alone — connection, depth, and meaningful collaboration.
+          </h2>
+          <p class="mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-alabaster/80 sm:text-base">
+            Her digital architecture is designed to make people think differently: about leadership, about beauty, about intelligence,
+            and about the kind of future we can build when human dignity remains at the center.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="philosophy.html" class="magnetic inline-flex rounded-full border border-sovereign/60 bg-sovereign px-6 py-3 text-xs font-medium uppercase tracking-[0.14em] text-obsidian" data-magnetic>
+              <span class="magnetic-inner">Enter The Mind</span>
+            </a>
+            <a href="contact.html" class="magnetic inline-flex rounded-full border border-optical/30 bg-optical/5 px-6 py-3 text-xs font-medium uppercase tracking-[0.14em] text-optical" data-magnetic>
+              <span class="magnetic-inner">Collaborate</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- COMPONENT: FOOTER -->
+    <footer class="border-t border-optical/10 px-5 py-8 sm:px-8 lg:px-12">
+      <div class="mx-auto flex w-full max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-xs text-alabaster/60">© 2026 Hermela Ashenafi Assefa</p>
+        <p class="meta-kern text-[10px] uppercase text-alabaster/50">The Architect · Logic in motion</p>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const exploreToggle = document.getElementById('exploreToggle');
+        const curtainMenu = document.getElementById('curtainMenu');
+
+        function setMenuState(isOpen) {
+          curtainMenu.setAttribute('data-open', String(isOpen));
+          curtainMenu.setAttribute('aria-hidden', String(!isOpen));
+          exploreToggle.setAttribute('aria-expanded', String(isOpen));
+          exploreToggle.setAttribute('data-open', String(isOpen));
+          document.body.classList.toggle('overflow-hidden', isOpen);
+        }
+
+        exploreToggle.addEventListener('click', () => {
+          const open = exploreToggle.getAttribute('data-open') === 'true';
+          setMenuState(!open);
+        });
+
+        curtainMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenuState(false)));
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenuState(false); });
+
+        if (reduceMotion) return;
+
+        const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 0.95, smoothWheel: true, normalizeWheel: true });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+
+        document.querySelectorAll('[data-split]').forEach((element) => {
+          const text = element.textContent.trim();
+          element.innerHTML = '';
+          [...text].forEach((char) => {
+            const mask = document.createElement('span');
+            mask.className = 'text-mask';
+            const inner = document.createElement('span');
+            inner.className = 'char';
+            inner.textContent = char === ' ' ? '\u00A0' : char;
+            mask.appendChild(inner);
+            element.appendChild(mask);
+          });
+        });
+
+        gsap.to('.char', { yPercent: 0, duration: 1.05, ease: 'expo.out', stagger: 0.03, delay: 0.1 });
+
+        document.querySelectorAll('.parallax-plane').forEach((plane) => {
+          const depth = Number(plane.getAttribute('data-depth') || 0.12);
+          gsap.to(plane, {
+            yPercent: depth * 90,
+            ease: 'none',
+            scrollTrigger: { trigger: '#architect-hero', start: 'top top', end: 'bottom top', scrub: true }
+          });
+        });
+
+        const velocityBlock = document.querySelector('[data-velocity-block]');
+        if (velocityBlock) {
+          const skewSetter = gsap.quickSetter(velocityBlock, 'skewY', 'deg');
+          ScrollTrigger.create({
+            onUpdate: (self) => {
+              const skew = gsap.utils.clamp(-4, 4, self.getVelocity() / -350);
+              skewSetter(skew);
+              gsap.to(velocityBlock, { skewY: 0, duration: 0.7, ease: 'power3.out', overwrite: true });
+            }
+          });
+        }
+
+        const floatingNav = document.getElementById('floatingNav');
+        let lastY = window.scrollY;
+        let lastTime = performance.now();
+
+        function updateNavVelocity() {
+          const now = performance.now();
+          const dy = window.scrollY - lastY;
+          const dt = Math.max(1, now - lastTime);
+          const velocity = Math.min(1, Math.abs(dy / dt) * 3.2);
+
+          gsap.to(floatingNav, {
+            y: Math.min(14, velocity * 14),
+            scale: 1 - velocity * 0.03,
+            duration: 0.35,
+            ease: 'power3.out'
+          });
+
+          lastY = window.scrollY;
+          lastTime = now;
+          requestAnimationFrame(updateNavVelocity);
+        }
+        requestAnimationFrame(updateNavVelocity);
+
+        document.querySelectorAll('[data-magnetic]').forEach((node) => {
+          const inner = node.querySelector('.magnetic-inner');
+          if (!inner) return;
+
+          node.addEventListener('mousemove', (e) => {
+            const rect = node.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const tx = gsap.utils.clamp(-10, 10, x * 0.2);
+            const ty = gsap.utils.clamp(-8, 8, y * 0.2);
+            gsap.to(inner, { x: tx, y: ty, duration: 0.24, ease: 'power3.out' });
+          });
+
+          node.addEventListener('mouseleave', () => {
+            gsap.to(inner, { x: 0, y: 0, duration: 0.38, ease: 'expo.out' });
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
